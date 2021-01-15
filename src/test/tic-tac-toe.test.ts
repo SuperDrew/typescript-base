@@ -42,6 +42,8 @@ const getWinner = (board: string[][]) => {
     return checkDiagonals() || '';
 }
 
+const isDraw = (board: string[][]) => false;
+
 describe('tic-tac-toe', () => {
     it('initial player should be X', () => {
         expect(ticTacToe().currentPlayer).toBe('X')
@@ -188,7 +190,7 @@ describe('tic-tac-toe', () => {
             ['O','','X']
         ])).toEqual('O');
     })
-    
+
     it('player X should win if they have three same values in a diagonal', () => {
         expect(getWinner([
             ['X','',''],
@@ -210,6 +212,16 @@ describe('tic-tac-toe', () => {
             ['','','']
         ]
         expect(getWinner(board)).toEqual('')
+    });
+
+    it('it should be a draw for a full grid with no winner', () => {
+        const board = [
+            ['X','O','X'],
+            ['X','O','O'],
+            ['O','X','X']
+        ]
+        expect(getWinner(board)).toEqual('')
+        expect(isDraw(board)).toEqual(true)
     });
 
     it('no player should win if there is not the same symbol in a row', () => {
