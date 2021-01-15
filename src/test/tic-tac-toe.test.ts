@@ -23,7 +23,11 @@ const getWinner = (board: string[][]) => {
     const checkRow = (row: number) => {
         return (board[row][0] === board[row][1]) && (board[row][0] == board[row][2]) ? board[row][0] : '';
     }
-    return checkRow(0) || checkRow(1) || checkRow(2)
+
+    const checkColumn = (column: number) => {
+        return (board[0][column] === board[1][column]) && (board[0][column] == board[2][column]) ? board[0][column] : '';
+    }
+    return checkRow(0) || checkRow(1) || checkRow(2) || checkColumn(0) || checkColumn(1) || checkColumn(2)
 }
 
 describe('tic-tac-toe', () => {
@@ -124,6 +128,18 @@ describe('tic-tac-toe', () => {
             ['X','',''],
             ['X','O',''],
             ['X','','O']
+        ])).toEqual('X');
+
+        expect(getWinner([
+            ['','X',''],
+            ['O','X',''],
+            ['','X','O']
+        ])).toEqual('X')
+
+        expect(getWinner([
+            ['','','X'],
+            ['O','O','X'],
+            ['','','X']
         ])).toEqual('X')
     })
 
