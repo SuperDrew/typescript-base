@@ -5,7 +5,9 @@ const ticTacToe = () => {
 }
 
 function play(ticTacToeInstance: { currentPlayer: string }) {
-    return { currentPlayer: 'O' }
+    return { 
+        currentPlayer: ticTacToeInstance.currentPlayer === 'X' ? 'O' : 'X' 
+    }
 }
 
 describe('tic-tac-toe', () => {
@@ -23,5 +25,11 @@ describe('tic-tac-toe', () => {
         const ticTacToeInstance = ticTacToe()
         const updatedTicTacToe = play(play(ticTacToeInstance))
         expect(updatedTicTacToe.currentPlayer).toBe('X')
+    })
+
+    it('fourth player should be O', () => {
+        const ticTacToeInstance = ticTacToe()
+        const updatedTicTacToe = play(play(play(ticTacToeInstance)))
+        expect(updatedTicTacToe.currentPlayer).toBe('O')
     })
 })
