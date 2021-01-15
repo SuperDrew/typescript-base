@@ -20,7 +20,10 @@ const play = ({ currentPlayer, board }: { currentPlayer: string, board: string[]
 }
 
 const getWinner = (board: string[][]) => {
-    return (board[0][0] === board[0][1]) && (board[0][0] == board[0][2]) ? board[0][0] : '';
+    const checkRow = (row: number) => {
+        return (board[row][0] === board[row][1]) && (board[row][0] == board[row][2]) ? board[row][0] : '';
+    }
+    return checkRow(0) || checkRow(1) || checkRow(2)
 }
 
 describe('tic-tac-toe', () => {
@@ -77,12 +80,23 @@ describe('tic-tac-toe', () => {
     })
 
     it('player X should win if they have three same values in a row', () => {
-        const board = [
+        expect(getWinner([
             ['X','X','X'],
             ['','O',''],
             ['O','','']
-        ]
-        expect(getWinner(board)).toEqual('X')
+        ])).toEqual('X')
+
+        expect(getWinner([
+            ['','O',''],
+            ['X','X','X'],
+            ['O','','']
+        ])).toEqual('X')
+
+        expect(getWinner([
+            ['','O',''],
+            ['','O',''],
+            ['X','X','X']
+        ])).toEqual('X')
     });
 
     it('player O should win if they have three same values in a row', () => {
@@ -97,7 +111,21 @@ describe('tic-tac-toe', () => {
             ['O','O','O'],
             ['X','','']
         ])).toEqual('O')
+
+        expect(getWinner([
+            ['','X',''],
+            ['','O',''],
+            ['O','O','O']
+        ])).toEqual('O')
     });
+
+    it('player X should win if they have three same values in a column', () => {
+        expect(getWinner([
+            ['X','',''],
+            ['X','O',''],
+            ['X','','O']
+        ])).toEqual('X')
+    })
 
     it('no winner for an empty grid', () => {
         const board = [
