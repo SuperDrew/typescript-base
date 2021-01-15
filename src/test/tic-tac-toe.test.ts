@@ -86,12 +86,17 @@ describe('tic-tac-toe', () => {
     });
 
     it('player O should win if they have three same values in a row', () => {
-        const board = [
+        expect(getWinner([
             ['O','O','O'],
             ['','X',''],
             ['X','','']
-        ]
-        expect(getWinner(board)).toEqual('O')
+        ])).toEqual('O')
+
+        expect(getWinner([
+            ['','X',''],
+            ['O','O','O'],
+            ['X','','']
+        ])).toEqual('O')
     });
 
     it('no winner for an empty grid', () => {
