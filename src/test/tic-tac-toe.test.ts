@@ -102,4 +102,13 @@ describe('tic-tac-toe', () => {
         ]
         expect(getWinner(board)).toEqual('')
     });
+
+    it('no player should win if there is not the same symbol in a row', () => {
+        const board = [
+            ['X','X','O'],
+            ['','',''],
+            ['O','','']
+        ]
+        expect(getWinner(board)).toEqual('')
+    });
 })
