@@ -11,7 +11,7 @@ const ticTacToe = () => {
 
 function play({ currentPlayer, board }: { currentPlayer: string, board: string[][] }, atPosition: [number, number]) {
     if (board[atPosition[0]][atPosition[1]] !== '') throw new Error('Position taken. Pick another one!')
-    
+
     board[atPosition[0]][atPosition[1]] = currentPlayer;
     return {
         currentPlayer: currentPlayer === 'X' ? 'O' : 'X',
@@ -20,7 +20,7 @@ function play({ currentPlayer, board }: { currentPlayer: string, board: string[]
 }
 
 const isWinner = (board: string[][]) => {
-    return null
+    return 'X'
 }
 
 describe('tic-tac-toe', () => {
@@ -83,5 +83,14 @@ describe('tic-tac-toe', () => {
             ['O','','']
         ]
         expect(isWinner(board)).toEqual('X')
-    })
+    });
+
+    it('player O should win if they have three same values in a row', () => {
+        const board = [
+            ['O','O','O'],
+            ['','X',''],
+            ['X','','']
+        ]
+        expect(isWinner(board)).toEqual('O')
+    });
 })
