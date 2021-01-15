@@ -180,6 +180,12 @@ describe('tic-tac-toe', () => {
             ['X','O',''],
             ['X','','O']
         ])).toEqual('O');
+
+        expect(getWinner([
+            ['','','O'],
+            ['X','O',''],
+            ['O','','X']
+        ])).toEqual('O');
     })
 
     it('no winner for an empty grid', () => {
