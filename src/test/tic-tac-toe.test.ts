@@ -55,4 +55,18 @@ describe('tic-tac-toe', () => {
             ['','','']
         ])
     })
+
+    it('should place an O on the board when playing', () => {
+        const ticTacToeWithOneMovePlayed = play(ticTacToe(), [0,0]);
+        expect(play(ticTacToeWithOneMovePlayed, [1,1]).board).toEqual([
+            ['X','',''],
+            ['','O',''],
+            ['','','']
+        ])
+    })
+
+    it('should place an O on the board when playing', () => {
+        const ticTacToeWithOneMovePlayed = play(ticTacToe(), [0,0]);
+        expect(play(ticTacToeWithOneMovePlayed, [0,0]).board).toThrowError();
+    })
 })
