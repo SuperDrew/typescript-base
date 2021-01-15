@@ -1,12 +1,11 @@
-// 2 players: 1 = x; 2 = 0
-// board = [[],[],[]]
-
-const initialPlayer = () => {
-    return 'X'
+const ticTacToe = () => {
+    return {
+        currentPlayer: 'X'
+    }
 }
 
 describe('tic-tac-toe', () => {
-    it('initial player should be X', () => {  
-        expect(initialPlayer()).toBe('X')
-    })
+    it('initial player should be X', () => {
+        expect(ticTacToe().currentPlayer).toBe('X')
+    });
 })
