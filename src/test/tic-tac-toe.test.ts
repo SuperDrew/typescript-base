@@ -5,7 +5,7 @@ const ticTacToe = () => {
 }
 
 function play(ticTacToeInstance: { currentPlayer: string }) {
-    return null;
+    return { currentPlayer: 'O' }
 }
 
 describe('tic-tac-toe', () => {
