@@ -42,7 +42,7 @@ const getWinner = (board: string[][]) => {
     return checkDiagonals() || '';
 }
 
-const isDraw = (board: string[][]) => false;
+const isDraw = (board: string[][]) => true;
 
 describe('tic-tac-toe', () => {
     it('initial player should be X', () => {
@@ -222,6 +222,16 @@ describe('tic-tac-toe', () => {
         ]
         expect(getWinner(board)).toEqual('')
         expect(isDraw(board)).toEqual(true)
+    });
+
+    it('it should not be a draw for a full grid with a winner', () => {
+        const board = [
+            ['X','X','X'],
+            ['X','O','O'],
+            ['O','O','X']
+        ]
+        expect(getWinner(board)).toEqual('X')
+        expect(isDraw(board)).toEqual(false)
     });
 
     it('no player should win if there is not the same symbol in a row', () => {
