@@ -9,10 +9,11 @@ const ticTacToe = () => {
     }
 }
 
-function play(ticTacToeInstance: { currentPlayer: string, board: string[][] }, atPosition: [number, number] = [0, 0]) {
+function play({ currentPlayer, board }: { currentPlayer: string, board: string[][] }, atPosition: [number, number] = [0, 0]) {
+    board[atPosition[0]][atPosition[1]] = currentPlayer;
     return {
-        currentPlayer: ticTacToeInstance.currentPlayer === 'X' ? 'O' : 'X',
-        board: ticTacToeInstance.board
+        currentPlayer: currentPlayer === 'X' ? 'O' : 'X',
+        board
     }
 }
 
