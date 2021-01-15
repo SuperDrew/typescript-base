@@ -9,7 +9,9 @@ const ticTacToe = () => {
     }
 }
 
-function play({ currentPlayer, board }: { currentPlayer: string, board: string[][] }, atPosition: [number, number] = [0, 0]) {
+function play({ currentPlayer, board }: { currentPlayer: string, board: string[][] }, atPosition: [number, number]) {
+    if (board[atPosition[0]][atPosition[1]] !== '') throw new Error('Position taken. Pick another one!')
+    
     board[atPosition[0]][atPosition[1]] = currentPlayer;
     return {
         currentPlayer: currentPlayer === 'X' ? 'O' : 'X',
@@ -24,19 +26,19 @@ describe('tic-tac-toe', () => {
 
     it('second player should be O', () => {
         const ticTacToeInstance = ticTacToe();
-        const updatedTicTacToe = play(ticTacToeInstance)
+        const updatedTicTacToe = play(ticTacToeInstance, [0, 1])
         expect(updatedTicTacToe.currentPlayer).toBe('O')
     });
 
     it('third player should be X', () => {
         const ticTacToeInstance = ticTacToe()
-        const updatedTicTacToe = play(play(ticTacToeInstance))
+        const updatedTicTacToe = play(play(ticTacToeInstance, [0, 1]), [0, 2])
         expect(updatedTicTacToe.currentPlayer).toBe('X')
     })
 
     it('fourth player should be O', () => {
         const ticTacToeInstance = ticTacToe()
-        const updatedTicTacToe = play(play(play(ticTacToeInstance)))
+        const updatedTicTacToe = play(play(play(ticTacToeInstance, [0, 0]), [0, 1]), [0, 2])
         expect(updatedTicTacToe.currentPlayer).toBe('O')
     })
 
@@ -65,8 +67,8 @@ describe('tic-tac-toe', () => {
         ])
     })
 
-    it('should place an O on the board when playing', () => {
+    it('should throw an error if the position is already taken', () => {
         const ticTacToeWithOneMovePlayed = play(ticTacToe(), [0,0]);
-        expect(play(ticTacToeWithOneMovePlayed, [0,0]).board).toThrowError();
+        expect(() => play(ticTacToeWithOneMovePlayed, [0,0])).toThrowError('Position taken. Pick another one!');
     })
 })
