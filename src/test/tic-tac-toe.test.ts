@@ -20,7 +20,7 @@ function play({ currentPlayer, board }: { currentPlayer: string, board: string[]
 }
 
 const isWinner = (board: string[][]) => {
-    return 'X'
+    return board[0][0]
 }
 
 describe('tic-tac-toe', () => {
