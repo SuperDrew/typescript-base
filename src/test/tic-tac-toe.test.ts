@@ -93,4 +93,13 @@ describe('tic-tac-toe', () => {
         ]
         expect(isWinner(board)).toEqual('O')
     });
+
+    it('no winner for an empty grid', () => {
+        const board = [
+            ['','',''],
+            ['','',''],
+            ['','','']
+        ]
+        expect(isWinner(board)).toEqual('')
+    });
 })
