@@ -9,7 +9,7 @@ const ticTacToe = () => {
     }
 }
 
-function play({ currentPlayer, board }: { currentPlayer: string, board: string[][] }, atPosition: [number, number]) {
+const play = ({ currentPlayer, board }: { currentPlayer: string, board: string[][] }, atPosition: [number, number]) => {
     if (board[atPosition[0]][atPosition[1]] !== '') throw new Error('Position taken. Pick another one!')
 
     board[atPosition[0]][atPosition[1]] = currentPlayer;
@@ -20,7 +20,7 @@ function play({ currentPlayer, board }: { currentPlayer: string, board: string[]
 }
 
 const getWinner = (board: string[][]) => {
-    return board[0][0]
+    return (board[0][0] === board[0][1]) && (board[0][0] == board[0][2]) ? board[0][0] : '';
 }
 
 describe('tic-tac-toe', () => {
