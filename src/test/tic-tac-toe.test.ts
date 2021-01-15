@@ -141,6 +141,26 @@ describe('tic-tac-toe', () => {
             ['O','O','X'],
             ['','','X']
         ])).toEqual('X')
+    });
+
+    it('player O should win if they have three same values in a column', () => {
+        expect(getWinner([
+            ['O','',''],
+            ['O','X',''],
+            ['O','','X']
+        ])).toEqual('O');
+
+        expect(getWinner([
+            ['','O',''],
+            ['X','O',''],
+            ['','O','X']
+        ])).toEqual('O')
+
+        expect(getWinner([
+            ['','','O'],
+            ['X','X','O'],
+            ['','','O']
+        ])).toEqual('O')
     })
 
     it('no winner for an empty grid', () => {
