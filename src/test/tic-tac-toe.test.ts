@@ -19,7 +19,7 @@ function play({ currentPlayer, board }: { currentPlayer: string, board: string[]
     }
 }
 
-const isWinner = (board: string[][]) => {
+const getWinner = (board: string[][]) => {
     return board[0][0]
 }
 
@@ -82,7 +82,7 @@ describe('tic-tac-toe', () => {
             ['','O',''],
             ['O','','']
         ]
-        expect(isWinner(board)).toEqual('X')
+        expect(getWinner(board)).toEqual('X')
     });
 
     it('player O should win if they have three same values in a row', () => {
@@ -91,7 +91,7 @@ describe('tic-tac-toe', () => {
             ['','X',''],
             ['X','','']
         ]
-        expect(isWinner(board)).toEqual('O')
+        expect(getWinner(board)).toEqual('O')
     });
 
     it('no winner for an empty grid', () => {
@@ -100,6 +100,6 @@ describe('tic-tac-toe', () => {
             ['','',''],
             ['','','']
         ]
-        expect(isWinner(board)).toEqual('')
+        expect(getWinner(board)).toEqual('')
     });
 })
