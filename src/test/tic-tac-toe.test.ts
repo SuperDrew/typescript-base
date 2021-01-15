@@ -18,4 +18,10 @@ describe('tic-tac-toe', () => {
         const updatedTicTacToe = play(ticTacToeInstance)
         expect(updatedTicTacToe.currentPlayer).toBe('O')
     });
+
+    it('third player should be X', () => {
+        const ticTacToeInstance = ticTacToe()
+        const updatedTicTacToe = play(play(ticTacToeInstance))
+        expect(updatedTicTacToe.currentPlayer).toBe('X')
+    })
 })
