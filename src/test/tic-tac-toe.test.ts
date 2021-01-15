@@ -30,6 +30,7 @@ const getWinner = (board: string[][]) => {
 
     const checkDiagonals = () => {
         if (board[0][0] === board[1][1] && board[1][1] === board[2][2]) return board[0][0];
+        if (board[0][2] === board[1][1] && board[1][1] === board[2][0]) return board[0][2];
         return '';
     }
 
@@ -186,6 +187,20 @@ describe('tic-tac-toe', () => {
             ['X','O',''],
             ['O','','X']
         ])).toEqual('O');
+    })
+    
+    it('player X should win if they have three same values in a diagonal', () => {
+        expect(getWinner([
+            ['X','',''],
+            ['O','X',''],
+            ['O','','X']
+        ])).toEqual('X');
+
+        expect(getWinner([
+            ['','','X'],
+            ['O','X',''],
+            ['X','','O']
+        ])).toEqual('X');
     })
 
     it('no winner for an empty grid', () => {
