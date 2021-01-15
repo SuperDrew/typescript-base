@@ -19,6 +19,10 @@ function play({ currentPlayer, board }: { currentPlayer: string, board: string[]
     }
 }
 
+const isWinner = (board: string[][]) => {
+    return null
+}
+
 describe('tic-tac-toe', () => {
     it('initial player should be X', () => {
         expect(ticTacToe().currentPlayer).toBe('X')
@@ -70,5 +74,14 @@ describe('tic-tac-toe', () => {
     it('should throw an error if the position is already taken', () => {
         const ticTacToeWithOneMovePlayed = play(ticTacToe(), [0,0]);
         expect(() => play(ticTacToeWithOneMovePlayed, [0,0])).toThrowError('Position taken. Pick another one!');
+    })
+
+    it('player X should win if they have three same values in a row', () => {
+        const board = [
+            ['X','X','X'],
+            ['','O',''],
+            ['O','','']
+        ]
+        expect(isWinner(board)).toEqual('X')
     })
 })
