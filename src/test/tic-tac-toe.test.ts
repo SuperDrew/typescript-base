@@ -161,6 +161,14 @@ describe('tic-tac-toe', () => {
             ['X','X','O'],
             ['','','O']
         ])).toEqual('O')
+    });
+
+    it('player O should win if they have three same values in a diagonal', () => {
+        expect(getWinner([
+            ['O','',''],
+            ['X','O',''],
+            ['X','','O']
+        ])).toEqual('O');
     })
 
     it('no winner for an empty grid', () => {
