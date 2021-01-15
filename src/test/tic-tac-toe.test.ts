@@ -1,13 +1,17 @@
 const ticTacToe = () => {
     return {
         currentPlayer: 'X',
-        board: ''
+        board: [
+            ['', '', ''],
+            ['', '', ''],
+            ['', '', '']
+        ]
     }
 }
 
 function play(ticTacToeInstance: { currentPlayer: string }) {
-    return { 
-        currentPlayer: ticTacToeInstance.currentPlayer === 'X' ? 'O' : 'X' 
+    return {
+        currentPlayer: ticTacToeInstance.currentPlayer === 'X' ? 'O' : 'X'
     }
 }
 
@@ -34,8 +38,8 @@ describe('tic-tac-toe', () => {
         expect(updatedTicTacToe.currentPlayer).toBe('O')
     })
 
-    it('should return the intial state of the board', () => {
-        expect(ticTacToe().board).toBe([
+    it('should return the initial state of the board', () => {
+        expect(ticTacToe().board).toEqual([
             ['','',''],
             ['','',''],
             ['','','']
