@@ -42,7 +42,7 @@ const getWinner = (board: string[][]) => {
     return checkDiagonals() || '';
 }
 
-const isDraw = (board: string[][]) => true;
+const isDraw = (board: string[][]) => getWinner(board) ? false : true;
 
 describe('tic-tac-toe', () => {
     it('initial player should be X', () => {
