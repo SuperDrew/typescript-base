@@ -27,7 +27,18 @@ const getWinner = (board: string[][]) => {
     const checkColumn = (column: number) => {
         return (board[0][column] === board[1][column]) && (board[0][column] == board[2][column]) ? board[0][column] : '';
     }
-    return checkRow(0) || checkRow(1) || checkRow(2) || checkColumn(0) || checkColumn(1) || checkColumn(2)
+
+    const checkDiagonals = () => {
+        if (board[0][0] === board[1][1] && board[1][1] === board[2][2]) return board[0][0];
+        return '';
+    }
+
+    for (let i = 0; i < 3; i++) {
+        const winner = checkRow(i) || checkColumn(i);
+        if (winner) return winner;
+    }
+
+    return checkDiagonals() || '';
 }
 
 describe('tic-tac-toe', () => {
