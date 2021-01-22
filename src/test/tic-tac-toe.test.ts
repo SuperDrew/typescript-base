@@ -30,12 +30,18 @@ const checkColumn = (board: string[][], column: number): string => {
     return difference === undefined ? board[0][column] : '';
 }
 
-const checkDiagonals = (board: string[][]): string => {
-    const difference = board.find((row, i) => row[i] !== board[0][0])
+const checkBackDiagonal = (board: string[][]): string => {
+    if (board[0][0] === '') return '';
 
-    // if (board[0][2] === board[1][1] && board[1][1] === board[2][0]) return board[0][2];
+    const backDiagonalDifference = board.find((row, i) => row[i] !== board[0][0])
+    return backDiagonalDifference === undefined ? board[0][0] : '';
+}
 
-    return difference === undefined ? board[0][0] : '';
+const checkForwardDiagonal = (board: string[][]): string => {
+    if (board[0][board.length - 1] === '') return '';
+
+    const forwardDiagonalDifference = board.find((row, i) => row[board.length - i - 1] !== board[0][board.length - 1])
+    return forwardDiagonalDifference === undefined ? board[0][board.length - 1] : '';
 }
 
 const getWinner = (board: string[][]) => {
@@ -49,7 +55,7 @@ const getWinner = (board: string[][]) => {
         if (winner) return winner;
     }
 
-    return checkDiagonals(board) || '';
+    return checkForwardDiagonal(board) || checkBackDiagonal(board) || '';
 }
 
 const isDraw = (board: string[][]) => getWinner(board) ? false : true;
@@ -280,12 +286,12 @@ describe('tic-tac-toe', () => {
                 ['', '', '', 'X']
             ])).toEqual(player.one)
 
-            // expect(getWinner([
-            //     ['', 'O', '', 'X'],
-            //     ['O', '', 'X', ''],
-            //     ['O', 'X', '', ''],
-            //     ['X', '', '', '']
-            // ])).toEqual(player.one)
+            expect(getWinner([
+                ['', 'O', '', 'X'],
+                ['O', '', 'X', ''],
+                ['O', 'X', '', ''],
+                ['X', '', '', '']
+            ])).toEqual(player.one)
         })
     });
 })
