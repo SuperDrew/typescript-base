@@ -21,41 +21,34 @@ const play = ({ currentPlayer, board }: { currentPlayer: string, board: string[]
 }
 
 const checkRow = (board: string[][], row: number): string => {
-    const difference = board[row].find(value => board[row][0] !== value)
-    return difference === undefined ? board[row][0] : '';
+    const symbol = board[row][0]
+    const difference = board[row].find(value => symbol !== value)
+    return difference === undefined ? symbol : '';
 }
 
 const checkColumn = (board: string[][], column: number): string => {
-    const difference = board.find(row => board[0][column] !== row[column])
-    return difference === undefined ? board[0][column] : '';
+    const symbol = board[0][column]
+    const difference = board.find(row => symbol !== row[column])
+    return difference === undefined ? symbol : '';
 }
 
 const checkBackDiagonal = (board: string[][]): string => {
-    if (board[0][0] === '') return '';
-
-    const backDiagonalDifference = board.find((row, i) => row[i] !== board[0][0])
-    return backDiagonalDifference === undefined ? board[0][0] : '';
+    const symbol = board[0][0]
+    const backDiagonalDifference = board.find((row, i) => row[i] !== symbol)
+    return backDiagonalDifference === undefined ? symbol : '';
 }
 
 const checkForwardDiagonal = (board: string[][]): string => {
-    if (board[0][board.length - 1] === '') return '';
+    const symbol = board[0][board.length - 1]
 
-    const forwardDiagonalDifference = board.find((row, i) => row[board.length - i - 1] !== board[0][board.length - 1])
-    return forwardDiagonalDifference === undefined ? board[0][board.length - 1] : '';
+    const forwardDiagonalDifference = board.find((row, i) => row[board.length - i - 1] !== symbol)
+    return forwardDiagonalDifference === undefined ? symbol : '';
 }
 
 const getWinner = (board: string[][]) => {
-    for (let i = 0; i < board.length; i++) {
-        const winner = checkRow(board, i)
-        if (winner) return winner;
-    }
+    const possibleWinner = board.reduce((winner, _, i): string => winner || checkRow(board, i) || checkColumn(board, i), '')
 
-    for (let i = 0; i < board[0].length ; i++) {
-        const winner = checkColumn(board, i);
-        if (winner) return winner;
-    }
-
-    return checkForwardDiagonal(board) || checkBackDiagonal(board) || '';
+    return possibleWinner || checkForwardDiagonal(board) || checkBackDiagonal(board) || '';
 }
 
 const isDraw = (board: string[][]) => !getWinner(board);
@@ -258,6 +251,16 @@ describe('tic-tac-toe', () => {
         ]
         expect(getWinner(board)).toEqual('')
     });
+
+    // it('it should not be a draw for a non-full grid with no winner', () => {
+    //     const board = [
+    //         ['X','X',''],
+    //         ['X','O','O'],
+    //         ['O','O','X']
+    //     ]
+    //     expect(getWinner(board)).toEqual('')
+    //     expect(isDraw(board)).toEqual(false)
+    // });
 
     describe('4 x 4 board', () => {
         it('player one should win if they have four same values in a row', () => {
