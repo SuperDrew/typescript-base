@@ -6,8 +6,6 @@ const player = {
 const ticTacToe = (width = 3, height = 3) => {
     return {
         currentPlayer: player.one,
-        width,
-        height,
         board:  [...Array(height)].map(_ => [...Array(width)].map(_ => ''))
     }
 }
@@ -24,7 +22,8 @@ const play = ({ currentPlayer, board }: { currentPlayer: string, board: string[]
 
 const getWinner = (board: string[][]) => {
     const checkRow = (row: number) => {
-        return (board[row][0] === board[row][1]) && (board[row][0] == board[row][2]) ? board[row][0] : '';
+        const difference = board[row].find(value => board[row][0] !== value)
+        return difference === undefined ? board[row][0] : '';
     }
 
     const checkColumn = (column: number) => {
@@ -37,8 +36,13 @@ const getWinner = (board: string[][]) => {
         return '';
     }
 
-    for (let i = 0; i < 3; i++) {
-        const winner = checkRow(i) || checkColumn(i);
+    for (let i = 0; i < board.length; i++) {
+        const winner = checkRow(i)
+        if (winner) return winner;
+    }
+
+    for (let i = 0; i < board[0].length ; i++) {
+        const winner = checkColumn(i);
         if (winner) return winner;
     }
 
