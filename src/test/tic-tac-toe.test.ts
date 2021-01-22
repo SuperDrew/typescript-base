@@ -234,16 +234,6 @@ describe('tic-tac-toe', () => {
         expect(isDraw(board)).toEqual(false)
     });
 
-    it('it should not be a draw for a non-full grid with no winner', () => {
-        const board = [
-            ['X','X',''],
-            ['X','O','O'],
-            ['O','O','X']
-        ]
-        expect(getWinner(board)).toEqual('')
-        expect(isDraw(board)).toEqual(false)
-    });
-
     it('no player should win if there is not the same symbol in a row', () => {
         const board = [
             ['X','X','O'],
