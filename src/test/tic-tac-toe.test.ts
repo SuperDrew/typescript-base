@@ -3,14 +3,12 @@ const player = {
     two: 'O'
 }
 
-const ticTacToe = () => {
+const ticTacToe = (width = 3, height = 3) => {
     return {
         currentPlayer: player.one,
-        board: [
-            ['', '', ''],
-            ['', '', ''],
-            ['', '', '']
-        ]
+        width,
+        height,
+        board:  [...Array(height)].map(_ => [...Array(width)].map(_ => ''))
     }
 }
 
@@ -246,5 +244,16 @@ describe('tic-tac-toe', () => {
             ['O','','']
         ]
         expect(getWinner(board)).toEqual('')
+    });
+
+    describe('4 x 4 board', () => {
+        it('player one should win if they have three same values in a row', () => {
+            expect(getWinner([
+                ['', 'O', '', ''],
+                ['O', '', '', ''],
+                ['O', '', '', ''],
+                ['X', 'X', 'X', 'X']
+            ])).toEqual(player.one)
+        })
     });
 })
