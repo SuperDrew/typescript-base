@@ -58,7 +58,7 @@ const getWinner = (board: string[][]) => {
     return checkForwardDiagonal(board) || checkBackDiagonal(board) || '';
 }
 
-const isDraw = (board: string[][]) => getWinner(board) ? false : true;
+const isDraw = (board: string[][]) => !getWinner(board);
 
 describe('tic-tac-toe', () => {
     it('initial player should be player one', () => {
