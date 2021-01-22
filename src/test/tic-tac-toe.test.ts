@@ -3,10 +3,10 @@ const player = {
     two: 'O'
 }
 
-const ticTacToe = (width = 3, height = 3) => {
+const ticTacToe = (size = 3) => {
     return {
         currentPlayer: player.one,
-        board:  [...Array(height)].map(_ => [...Array(width)].map(_ => ''))
+        board:  [...Array(size)].map(_ => [...Array(size)].map(_ => ''))
     }
 }
 
@@ -20,33 +20,36 @@ const play = ({ currentPlayer, board }: { currentPlayer: string, board: string[]
     }
 }
 
+const checkRow = (board: string[][], row: number): string => {
+    const difference = board[row].find(value => board[row][0] !== value)
+    return difference === undefined ? board[row][0] : '';
+}
+
+const checkColumn = (board: string[][], column: number): string => {
+    const difference = board.find(row => board[0][column] !== row[column])
+    return difference === undefined ? board[0][column] : '';
+}
+
+const checkDiagonals = (board: string[][]): string => {
+    const difference = board.find((row, i) => row[i] !== board[0][0])
+
+    // if (board[0][2] === board[1][1] && board[1][1] === board[2][0]) return board[0][2];
+
+    return difference === undefined ? board[0][0] : '';
+}
+
 const getWinner = (board: string[][]) => {
-    const checkRow = (row: number) => {
-        const difference = board[row].find(value => board[row][0] !== value)
-        return difference === undefined ? board[row][0] : '';
-    }
-
-    const checkColumn = (column: number) => {
-        return (board[0][column] === board[1][column]) && (board[0][column] == board[2][column]) ? board[0][column] : '';
-    }
-
-    const checkDiagonals = () => {
-        if (board[0][0] === board[1][1] && board[1][1] === board[2][2]) return board[0][0];
-        if (board[0][2] === board[1][1] && board[1][1] === board[2][0]) return board[0][2];
-        return '';
-    }
-
     for (let i = 0; i < board.length; i++) {
-        const winner = checkRow(i)
+        const winner = checkRow(board, i)
         if (winner) return winner;
     }
 
     for (let i = 0; i < board[0].length ; i++) {
-        const winner = checkColumn(i);
+        const winner = checkColumn(board, i);
         if (winner) return winner;
     }
 
-    return checkDiagonals() || '';
+    return checkDiagonals(board) || '';
 }
 
 const isDraw = (board: string[][]) => getWinner(board) ? false : true;
@@ -251,13 +254,38 @@ describe('tic-tac-toe', () => {
     });
 
     describe('4 x 4 board', () => {
-        it('player one should win if they have three same values in a row', () => {
+        it('player one should win if they have four same values in a row', () => {
             expect(getWinner([
                 ['', 'O', '', ''],
                 ['O', '', '', ''],
                 ['O', '', '', ''],
                 ['X', 'X', 'X', 'X']
             ])).toEqual(player.one)
+        })
+
+        it('player one should win if they have four same values in a column', () => {
+            expect(getWinner([
+                ['', 'O', '', 'X'],
+                ['O', '', '', 'X'],
+                ['O', '', '', 'X'],
+                ['', '', '', 'X']
+            ])).toEqual(player.one)
+        })
+
+        it('player one should win if they have four same values in a diagonal', () => {
+            expect(getWinner([
+                ['X', 'O', '', ''],
+                ['O', 'X', '', ''],
+                ['O', '', 'X', ''],
+                ['', '', '', 'X']
+            ])).toEqual(player.one)
+
+            // expect(getWinner([
+            //     ['', 'O', '', 'X'],
+            //     ['O', '', 'X', ''],
+            //     ['O', 'X', '', ''],
+            //     ['X', '', '', '']
+            // ])).toEqual(player.one)
         })
     });
 })
