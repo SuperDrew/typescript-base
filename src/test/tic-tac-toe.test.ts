@@ -1,6 +1,11 @@
+const player = {
+    one: 'X',
+    two: 'O'
+}
+
 const ticTacToe = () => {
     return {
-        currentPlayer: 'X',
+        currentPlayer: player.one,
         board: [
             ['', '', ''],
             ['', '', ''],
@@ -14,7 +19,7 @@ const play = ({ currentPlayer, board }: { currentPlayer: string, board: string[]
 
     board[atPosition[0]][atPosition[1]] = currentPlayer;
     return {
-        currentPlayer: currentPlayer === 'X' ? 'O' : 'X',
+        currentPlayer: currentPlayer === player.one ? player.two : player.one,
         board
     }
 }
@@ -45,26 +50,26 @@ const getWinner = (board: string[][]) => {
 const isDraw = (board: string[][]) => getWinner(board) ? false : true;
 
 describe('tic-tac-toe', () => {
-    it('initial player should be X', () => {
-        expect(ticTacToe().currentPlayer).toBe('X')
+    it('initial player should be player one', () => {
+        expect(ticTacToe().currentPlayer).toBe(player.one)
     });
 
-    it('second player should be O', () => {
+    it('second player should be player two', () => {
         const ticTacToeInstance = ticTacToe();
         const updatedTicTacToe = play(ticTacToeInstance, [0, 1])
-        expect(updatedTicTacToe.currentPlayer).toBe('O')
+        expect(updatedTicTacToe.currentPlayer).toBe(player.two)
     });
 
-    it('third player should be X', () => {
+    it('third player should be again player one', () => {
         const ticTacToeInstance = ticTacToe()
         const updatedTicTacToe = play(play(ticTacToeInstance, [0, 1]), [0, 2])
-        expect(updatedTicTacToe.currentPlayer).toBe('X')
+        expect(updatedTicTacToe.currentPlayer).toBe(player.one)
     })
 
-    it('fourth player should be O', () => {
+    it('fourth player should be again player two', () => {
         const ticTacToeInstance = ticTacToe()
         const updatedTicTacToe = play(play(play(ticTacToeInstance, [0, 0]), [0, 1]), [0, 2])
-        expect(updatedTicTacToe.currentPlayer).toBe('O')
+        expect(updatedTicTacToe.currentPlayer).toBe(player.two)
     })
 
     it('should return the initial state of the board', () => {
@@ -97,112 +102,112 @@ describe('tic-tac-toe', () => {
         expect(() => play(ticTacToeWithOneMovePlayed, [0,0])).toThrowError('Position taken. Pick another one!');
     })
 
-    it('player X should win if they have three same values in a row', () => {
+    it('player one should win if they have three same values in a row', () => {
         expect(getWinner([
             ['X','X','X'],
             ['','O',''],
             ['O','','']
-        ])).toEqual('X')
+        ])).toEqual(player.one)
 
         expect(getWinner([
             ['','O',''],
             ['X','X','X'],
             ['O','','']
-        ])).toEqual('X')
+        ])).toEqual(player.one)
 
         expect(getWinner([
             ['','O',''],
             ['','O',''],
             ['X','X','X']
-        ])).toEqual('X')
+        ])).toEqual(player.one)
     });
 
-    it('player O should win if they have three same values in a row', () => {
+    it('player two should win if they have three same values in a row', () => {
         expect(getWinner([
             ['O','O','O'],
             ['','X',''],
             ['X','','']
-        ])).toEqual('O')
+        ])).toEqual(player.two)
 
         expect(getWinner([
             ['','X',''],
             ['O','O','O'],
             ['X','','']
-        ])).toEqual('O')
+        ])).toEqual(player.two)
 
         expect(getWinner([
             ['','X',''],
             ['','O',''],
             ['O','O','O']
-        ])).toEqual('O')
+        ])).toEqual(player.two)
     });
 
-    it('player X should win if they have three same values in a column', () => {
+    it('player one should win if they have three same values in a column', () => {
         expect(getWinner([
             ['X','',''],
             ['X','O',''],
             ['X','','O']
-        ])).toEqual('X');
+        ])).toEqual(player.one);
 
         expect(getWinner([
             ['','X',''],
             ['O','X',''],
             ['','X','O']
-        ])).toEqual('X')
+        ])).toEqual(player.one)
 
         expect(getWinner([
             ['','','X'],
             ['O','O','X'],
             ['','','X']
-        ])).toEqual('X')
+        ])).toEqual(player.one)
     });
 
-    it('player O should win if they have three same values in a column', () => {
+    it('player two should win if they have three same values in a column', () => {
         expect(getWinner([
             ['O','',''],
             ['O','X',''],
             ['O','','X']
-        ])).toEqual('O');
+        ])).toEqual(player.two);
 
         expect(getWinner([
             ['','O',''],
             ['X','O',''],
             ['','O','X']
-        ])).toEqual('O')
+        ])).toEqual(player.two)
 
         expect(getWinner([
             ['','','O'],
             ['X','X','O'],
             ['','','O']
-        ])).toEqual('O')
+        ])).toEqual(player.two)
     });
 
-    it('player O should win if they have three same values in a diagonal', () => {
+    it('player two should win if they have three same values in a diagonal', () => {
         expect(getWinner([
             ['O','',''],
             ['X','O',''],
             ['X','','O']
-        ])).toEqual('O');
+        ])).toEqual(player.two);
 
         expect(getWinner([
             ['','','O'],
             ['X','O',''],
             ['O','','X']
-        ])).toEqual('O');
+        ])).toEqual(player.two);
     })
 
-    it('player X should win if they have three same values in a diagonal', () => {
+    it('player one should win if they have three same values in a diagonal', () => {
         expect(getWinner([
             ['X','',''],
             ['O','X',''],
             ['O','','X']
-        ])).toEqual('X');
+        ])).toEqual(player.one);
 
         expect(getWinner([
             ['','','X'],
             ['O','X',''],
             ['X','','O']
-        ])).toEqual('X');
+        ])).toEqual(player.one);
     })
 
     it('no winner for an empty grid', () => {
@@ -230,7 +235,7 @@ describe('tic-tac-toe', () => {
             ['X','O','O'],
             ['O','O','X']
         ]
-        expect(getWinner(board)).toEqual('X')
+        expect(getWinner(board)).not.toEqual('')
         expect(isDraw(board)).toEqual(false)
     });
 
