@@ -1,9 +1,10 @@
 export function sendCommandsToRover(commands: string) {
-    if (commands === 'M') {
-        return '0:1:N';
-    }
-    if (commands === 'MM') {
-        return '0:2:N';
-    }
-    return '0:0:N';
+    let xPos = 0;
+    let yPos = 0;
+
+    commands.split('').forEach(() => {
+        yPos += 1;
+    })
+
+    return `${xPos}:${yPos}:N`;
 }
