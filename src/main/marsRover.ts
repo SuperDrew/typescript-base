@@ -26,9 +26,11 @@ export function sendCommandsToRover(commands: string) {
             direction = clockwiseRotation[direction]
         } else if (command === 'L') {
             direction = antiClockwiseRotation[direction]
-        } else if (direction == "E") {
+        } else if (direction === "E") {
             xPos += 1;
-        }else
+        } else if(direction === 'W') {
+            xPos -= 1;
+        } else
             yPos += 1;
     })
 
