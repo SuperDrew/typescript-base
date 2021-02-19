@@ -3,10 +3,10 @@ function sendCommandsToRover(commands: string) {
 }
 describe('Mars rover', () => {
     describe('given the rover is at 0:0:N in a grid 10x10 with no obstacle', () => {
-        describe('with input MMRMMLM', () => {
-            it('should gives output 2:3:N', () => {
-                const commands = 'MMRMMLM';
-                const expected = '2:3:N';
+        describe('with input empty', () => {
+            it('should gives output 0:0:N', () => {
+                const commands = '';
+                const expected = '0:0:N';
 
                 expect(sendCommandsToRover(commands)).toBe(expected);
             });
