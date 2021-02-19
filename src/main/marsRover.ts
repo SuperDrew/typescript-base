@@ -15,12 +15,16 @@ export function sendCommandsToRover(commands: string) {
     // @ts-ignore
     const antiClockwiseRotation : Record <Direction, Direction> = {
         'N':'W',
+        'W':'S',
+        'S':'E',
+        'E':'N'
+
     }
     commands.split('').forEach((command: string) => {
 
         if (command === 'R') {
             direction = clockwiseRotation[direction]
-        } else if(command === 'L') {
+        } else if (command === 'L') {
             direction = antiClockwiseRotation[direction]
         } else {
             yPos += 1;
