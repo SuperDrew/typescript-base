@@ -1,6 +1,5 @@
-// function sendCommandsToRover(commands: string) {
-//     return undefined;
-// }
+import { sendCommandsToRover } from '../main/marsRover';
+
 describe.skip('Mars rover', () => {
     describe('given the rover is at 0:0:N in a grid 10x10 with no obstacle', () => {
         describe('with input MMRMMLM', () => {
