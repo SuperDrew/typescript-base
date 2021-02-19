@@ -11,7 +11,8 @@ describe('Mars rover', () => {
             ['R', '0:0:E'],
             ['RR', '0:0:S'],
             ['RRR', '0:0:W'],
-            ['MR', '1:0:N']
+            ['MR', '0:1:E'],
+            ['L', '0:0:W'],
         ])('with input %p', (commands, expected) => {
             it(`should return ${expected}`, () => {
                 expect(sendCommandsToRover(commands)).toBe(expected);
