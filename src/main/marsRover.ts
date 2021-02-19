@@ -1,4 +1,4 @@
-type Direction = "N" | "E" | "S" | "W" 
+type Direction = "N" | "E" | "S" | "W"
 
 export function sendCommandsToRover(commands: string) {
     let xPos = 0;
@@ -11,12 +11,18 @@ export function sendCommandsToRover(commands: string) {
         'S':'W',
         'W':'N'
     }
+
+    // @ts-ignore
+    const antiClockwiseRotation : Record <Direction, Direction> = {
+        'N':'W',
+    }
     commands.split('').forEach((command: string) => {
 
         if (command === 'R') {
             direction = clockwiseRotation[direction]
-        }  
-        else {
+        } else if(command === 'L') {
+            direction = antiClockwiseRotation[direction]
+        } else {
             yPos += 1;
         }
     })
