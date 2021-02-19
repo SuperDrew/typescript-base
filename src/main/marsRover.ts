@@ -1,10 +1,15 @@
 export function sendCommandsToRover(commands: string) {
     let xPos = 0;
     let yPos = 0;
+    let direction = 'N';
 
-    commands.split('').forEach(() => {
-        yPos += 1;
+    commands.split('').forEach((command: string) => {
+        if (command === 'R') {
+            direction = 'E'
+        } else {
+            yPos += 1;
+        }
     })
 
-    return `${xPos}:${yPos}:N`;
+    return `${xPos}:${yPos}:${direction}`;
 }
