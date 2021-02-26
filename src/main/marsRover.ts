@@ -13,7 +13,14 @@ function move(direction: "N" | "E" | "S" | "W", xPos: number, yPos: number) {
     return {x: xPos, y: yPos};
 }
 
-export class RoverPosition {
+export class Rover {
+
+    position = new roverPosition();
+    // public lastCommand: string = '';
+
+}
+
+export class roverPosition {
     public x: number;
     public y: number;
     public direction: Direction;
@@ -26,7 +33,10 @@ export class RoverPosition {
 }
 
 export function sendCommandsToRover(commands: string) {
-    const roverPosition = new RoverPosition();
+
+    let rover = new Rover();
+    
+    // const rover.position = new rover.position();
 
     const clockwiseRotation : Record <Direction, Direction> = {
         'N':'E',
@@ -45,15 +55,15 @@ export function sendCommandsToRover(commands: string) {
 
     commands.split('').forEach((command: string) => {
         if (command === 'R') {
-            roverPosition.direction = clockwiseRotation[roverPosition.direction]
+            rover.position.direction = clockwiseRotation[rover.position.direction]
         } else if (command === 'L') {
-            roverPosition.direction = antiClockwiseRotation[roverPosition.direction]
+            rover.position.direction = antiClockwiseRotation[rover.position.direction]
         } else if (command === 'M') {
-            const {x, y} = move(roverPosition.direction, roverPosition.x, roverPosition.y);
-            roverPosition.x = x;
-            roverPosition.y = y;
+            const {x, y} = move(rover.position.direction, rover.position.x, rover.position.y);
+            rover.position.x = x;
+            rover.position.y = y;
         }
     })
 
-    return `${roverPosition.x}:${roverPosition.y}:${roverPosition.direction}`;
+    return `${rover.position.x}:${rover.position.y}:${rover.position.direction}`;
 }
