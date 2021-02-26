@@ -25,4 +25,18 @@ describe('Mars rover', () => {
             })
         })
     });
+
+    describe('given the rover is at 0:0:N in a grid 10x10 with no obstacles', () => {
+        describe('and it receives LU', () => {
+            it('should return to 0:0:N', () => {
+                expect(sendCommandsToRover('LU')).toBe('0:0:N');
+            });
+        });
+
+        describe('and it receives RU', () => {
+            it('should return to 0:0:N', () => {
+                expect(sendCommandsToRover('RU')).toBe('0:0:N');
+            });
+        });
+    });
 })
