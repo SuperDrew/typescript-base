@@ -1,7 +1,6 @@
 import { sendCommandsToRover } from '../main/marsRover';
 
 describe('Mars rover', () => {
-
     describe('given the rover is at 0:0:N in a grid 10x10 with no obstacle', () => {
         describe.each([
             ['', '0:0:N'],
