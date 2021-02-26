@@ -16,7 +16,6 @@ export class Rover {
     }
 
     public position = new RoverPosition(0, 0, 'N');
-    private commands: string[] = [];
 
     public turnRight() {
         this.position.direction = this.clockwiseRotation[this.position.direction];
@@ -37,17 +36,6 @@ export class Rover {
             this.position.y += 1;
         }
     }
-
-    public undo() {
-        const previousCommand = this.commands[this.commands.length - 1];
-        if (previousCommand === 'L') {
-            this.turnRight();
-        }
-    }
-
-    public storeCommand(command: string) {
-        this.commands.push(command);
-    }
 }
 
 export class RoverPosition {
@@ -62,22 +50,84 @@ export class RoverPosition {
     }
 }
 
+
+interface Command<T> {
+    execute(rover: Rover, previousCommand: string): void;
+    type: T
+}
+
+class TurnRightCommand implements Command<'R'> {
+    type: 'R' = 'R';
+    execute(rover: Rover, _previousCommand: string) {
+        rover.turnRight();
+    }
+}
+
+
+class TurnLeftCommand implements Command<'L'> {
+    type: 'L' = 'L';
+    execute(rover: Rover) {
+        rover.turnLeft();
+    }
+}
+
+
+class MoveCommand implements Command<'M'> {
+    type: 'M' =  'M';
+    execute(rover: Rover) {
+        rover.move();
+    }
+}
+
+class UndoCommand implements Command<'U'> {
+    type: 'U' = 'U';
+    execute(rover: Rover, previousCommand: string) {
+        if (previousCommand === 'L') {
+            rover.turnRight();
+        } else if(previousCommand === 'R') {
+            rover.turnLeft();
+        } else if(previousCommand === 'M') {
+            rover.turnRight();
+            rover.turnRight();
+            rover.move();
+            rover.turnLeft();
+            rover.turnLeft();
+        }
+    }
+}
+
+class CommandsQueue {
+    private _commands: Command<string>[] = [];
+    public add(command: Command<string>) {
+        this._commands.push(command);
+    }
+
+    executeAll(rover: Rover) {
+        this._commands.forEach((command, index) => {
+            const previousCommand = index ? this._commands[index - 1].type : '';
+            command.execute(rover, previousCommand)
+        })
+    }
+}
+
+
 export function sendCommandsToRover(commands: string) {
     const rover = new Rover();
+    const commandQueue = new CommandsQueue();
 
     commands.split('').forEach((command: string) => {
         if (command === 'R') {
-            rover.turnRight();
+            commandQueue.add(new TurnRightCommand());
         } else if (command === 'L') {
-            rover.turnLeft();
+            commandQueue.add(new TurnLeftCommand());
         } else if (command === 'M') {
-            rover.move();
+            commandQueue.add(new MoveCommand())
         } else if(command === 'U') {
-            rover.undo();
+            commandQueue.add(new UndoCommand())
         }
-
-        rover.storeCommand(command);
     })
+
+    commandQueue.executeAll(rover);
 
     return `${rover.position.x}:${rover.position.y}:${rover.position.direction}`;
 }

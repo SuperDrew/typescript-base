@@ -38,5 +38,11 @@ describe('Mars rover', () => {
                 expect(sendCommandsToRover('RU')).toBe('0:0:N');
             });
         });
+
+        describe('and it receives MU', () => {
+            it('should return to 0:0:N', () => {
+                expect(sendCommandsToRover('MU')).toBe('0:0:N');
+            });
+        });
     });
 })
