@@ -1,6 +1,6 @@
 import { sendCommandsToRover } from '../main/marsRover';
 
-describe.skip('Mars rover', () => {
+describe('Mars rover', () => {
     describe('given the rover is at 0:0:N in a grid 10x10 with no obstacle', () => {
         describe('with input MMRMMLM', () => {
             it('should gives output 2:3:N', () => {

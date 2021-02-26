@@ -1,5 +1,18 @@
 type Direction = "N" | "E" | "S" | "W"
 
+function move(direction: "N" | "E" | "S" | "W", xPos: number, yPos: number) {
+    if (direction === "E") {
+        xPos += 1;
+    } else if (direction === 'W') {
+        xPos -= 1;
+    } else if (direction === 'S') {
+        yPos -= 1;
+    } else {
+        yPos += 1;
+    }
+    return {xPos, yPos};
+}
+
 export function sendCommandsToRover(commands: string) {
     let xPos = 0;
     let yPos = 0;
@@ -24,14 +37,10 @@ export function sendCommandsToRover(commands: string) {
             direction = clockwiseRotation[direction]
         } else if (command === 'L') {
             direction = antiClockwiseRotation[direction]
-        } else if (direction === "E") {
-            xPos += 1;
-        } else if(direction === 'W') {
-            xPos -= 1;
-        } else if(direction === 'S') {
-            yPos -= 1;
-        } else {
-            yPos += 1;
+        } else if (command === 'M') {
+            const __ret = move(direction, xPos, yPos);
+            xPos = __ret.xPos;
+            yPos = __ret.yPos;
         }
     })
 
