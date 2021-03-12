@@ -11,7 +11,7 @@ export class GameOfLife {
     public advanceTime(): GameOfLife {
         const newGrid = new Grid([]);
         for (const livingCell of this._grid.liveCells) {
-            const numberOfNeighbours = this._grid.findLivingNeighbours(livingCell).liveCells.length;
+            const numberOfNeighbours = this._grid.findNumberOfLivingNeighbours(livingCell);
             if (this.numberOfNeighboursWhichLetCellLive.includes(numberOfNeighbours)) {
                 newGrid.addLiveCell(livingCell);
             }

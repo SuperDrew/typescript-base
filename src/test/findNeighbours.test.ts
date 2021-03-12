@@ -1,6 +1,6 @@
 import {Grid} from "../main/grid";
 
-describe('Neighbours', () => {
+describe('Live Neighbours', () => {
 
     it.each([
         ['above the cell', [[0,0], [0,1]], [0,0], [[0,1]]],
@@ -16,3 +16,13 @@ describe('Neighbours', () => {
         expect(grid.findLivingNeighbours(cell).liveCells).toStrictEqual(neighbours);
     })
  });
+
+describe('Zombie Neighbours', () => {
+    it.each([
+        //[0,1], [1,1], [1,0], [-1,0], [-1, -1], [1, -1], [0, -1], [-1, 1]
+        ['above the cell', [[0,0]], [0,0], 8],
+    ])('should get the number of zombies neighbours %p', (_description, gridCells, cell, numberOfZombiesNeighbours) => {
+        const grid = new Grid(gridCells);
+        expect(grid.findNumberOfZombieNeighbours(cell)).toStrictEqual(numberOfZombiesNeighbours);
+    })
+});
