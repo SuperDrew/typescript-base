@@ -1,5 +1,5 @@
 import { GameOfLife } from '../main/gameOfLife';
-import { Grid } from './neighbours.test';
+import { Grid } from '../main/grid';
 
 describe('Game of life', () => {
     it("should be able to create a grid with one alive cell at 2,3", () => {

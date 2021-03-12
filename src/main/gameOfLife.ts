@@ -1,4 +1,4 @@
-import { Grid } from '../test/neighbours.test';
+import { Grid } from './grid';
 
 export class GameOfLife {
     private _grid: Grid;
