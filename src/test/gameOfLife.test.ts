@@ -14,7 +14,11 @@ class Grid {
     }
 
     public advanceTime(): Grid {
-        return new Grid([])
+        const newGrid = new Grid([[]]);
+        for (const element of this.aliveCells) {
+
+        }
+        return new Grid([[]])
     }
 }
 
@@ -41,4 +45,19 @@ describe('Game of life', () => {
         ]);
         expect(grid.advanceTime() instanceof Grid).toBe(true)
     });
+
+    it("a single live cell should die when you advance time", () => {
+        const grid = new Grid([[0,0]]);
+        expect(grid.advanceTime().aliveCells).toStrictEqual([[]]);
+    })
+
+    it("two live cells next to each other should die when you advance time", () => {
+        const grid = new Grid([[0,0], [0,1]]);
+        expect(grid.advanceTime().aliveCells).toStrictEqual([[]]);
+    })
+
+    it("grid with all cells having two or three neighbours should return the same grid when you advance time", () => {
+        const grid = new Grid([[0,0], [0,1], [1,0]]);
+        expect(grid.advanceTime().aliveCells).toStrictEqual(grid.aliveCells);
+    })
 })
