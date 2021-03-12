@@ -15,6 +15,17 @@ export class GameOfLife {
             if (this.numberOfNeighboursWhichLetCellLive.includes(numberOfNeighbours)) {
                 newGrid.addLiveCell(livingCell);
             }
+
+            const zombies = this._grid.findZombieNeighbours(livingCell);
+            console.log("livincell: " + livingCell);
+            for (const zombie of zombies) {
+                console.log("zombie" + zombie);
+                var numberOfLivingNeighbours = this._grid.findNumberOfLivingNeighbours(zombie);
+                console.log(numberOfLivingNeighbours)
+                if (numberOfLivingNeighbours === 3) {
+                    newGrid.addLiveCell(zombie);
+                }
+            }
         }
         return new GameOfLife(newGrid);
     }
