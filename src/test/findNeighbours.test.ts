@@ -31,12 +31,10 @@ describe('Zombie Neighbours', () => {
         //[0,1], [1,1], [1,0], [-1,0], [-1, -1], [1, -1], [0, -1], [-1, 1]
         ['above the cell', [[1, 1], [1, 0], [-1, 0], [-1, -1], [1, -1], [0, -1], [-1, 1]], [0,0], [[0,1]]],
         ['above and to the right of the cell', [[0,1], [1, 0], [-1, 0], [-1, -1], [1, -1], [0, -1], [-1, 1]], [0,0], [[1, 1]]],
-        ['foobar', [[0, 0], [1, 0], [2, 2]], [1, 0], [[[0, 1], [1, 1], [2, 1], [2, 0], [2, -1], [1, -1], [0, -1]]]],
-    ])('should get the zombies neighbours %p', (_description, gridCells, cell, zombieNeighbours) => {
+        ['foobar', [[0, 0], [1, 0], [2, 2]], [1, 0], [[0, 1], [1, 1], [2, 1], [2, 0], [2, -1], [1, -1], [0, -1]]],
+    ])('should get the zombies neighbours %p', (_description, gridCells, cell, expectedZombieNeighbours) => {
         const grid = new Grid(gridCells);
         const actualZombieNeighbours = grid.findZombieNeighbours(cell)
-        for (const zombieNeighbour in actualZombieNeighbours) {
-            expect(zombieNeighbours.includes(zombieNeighbour)).toBe(true);
-        }
+        expect(actualZombieNeighbours).toEqual(expect.arrayContaining(expectedZombieNeighbours));
     })
 });
