@@ -27,16 +27,22 @@ describe('Game of life', () => {
 
     it("a single live cell should die when you advance time", () => {
         const gameOfLife = new GameOfLife(new Grid([[0,0]]));
-        expect(gameOfLife.advanceTime().liveCells).toStrictEqual([[]]);
+        expect(gameOfLife.advanceTime().liveCells).toStrictEqual([]);
     })
 
     it("two live cells next to each other should die when you advance time", () => {
         const gameOfLife = new GameOfLife(new Grid([[0,0], [0,1]]));
-        expect(gameOfLife.advanceTime().liveCells).toStrictEqual([[]]);
+        expect(gameOfLife.advanceTime().liveCells).toStrictEqual([]);
     })
 
-    it("grid with all cells having two or three neighbours should return the same grid when you advance time", () => {
+    it("grid with all cells having two neighbours should return the same grid when you advance time", () => {
         const grid1 = new Grid([[0, 0], [0, 1], [1, 0]]);
+        const gameOfLife = new GameOfLife(grid1);
+        expect(gameOfLife.advanceTime().liveCells).toStrictEqual(gameOfLife.liveCells);
+    })
+
+    it("grid with all cells having three neighbours should return the same grid when you advance time", () => {
+        const grid1 = new Grid([[0, 0], [0, 1], [1, 0], [1, 1]]);
         const gameOfLife = new GameOfLife(grid1);
         expect(gameOfLife.advanceTime().liveCells).toStrictEqual(gameOfLife.liveCells);
     })

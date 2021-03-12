@@ -7,10 +7,14 @@ export class GameOfLife {
         this._grid = grid;
     }
 
+    private numberOfNeighboursWhichLetCellLive: number[] = [2, 3];
     public advanceTime(): GameOfLife {
         const newGrid = new Grid([]);
         for (const livingCell of this._grid.liveCells) {
-            newGrid.addLiveCell(livingCell);
+            const numberOfNeighbours = this._grid.findLivingNeighbours(livingCell).liveCells.length;
+            if (this.numberOfNeighboursWhichLetCellLive.includes(numberOfNeighbours)) {
+                newGrid.addLiveCell(livingCell);
+            }
         }
         return new GameOfLife(newGrid);
     }
