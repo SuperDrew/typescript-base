@@ -35,12 +35,6 @@ describe('Game of life', () => {
         expect(gameOfLife.advanceTime().liveCells).toStrictEqual([]);
     })
 
-    it("grid with all cells having two neighbours should return the same grid when you advance time", () => {
-        const grid = new Grid([[0, 0], [0, 1], [1, 0]]);
-        const gameOfLife = new GameOfLife(grid);
-        expect(gameOfLife.advanceTime().liveCells).toStrictEqual(gameOfLife.liveCells);
-    })
-
     it("grid with all cells having three neighbours should return the same grid when you advance time", () => {
         const grid = new Grid([[0, 0], [0, 1], [1, 0], [1, 1]]);
         const gameOfLife = new GameOfLife(grid);
