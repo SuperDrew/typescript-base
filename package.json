@@ -6,7 +6,7 @@
   "types": "./build/index.d.ts",
   "scripts": {
     "start": "jest --",
-    "watch": "jest --watch --",
+    "watch": "jest --watch q--",
     "watch-all": "jest --watchAll"
   },
   "dependencies": {

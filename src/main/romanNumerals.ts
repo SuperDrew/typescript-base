@@ -41,6 +41,7 @@ const applySubtractiveNotation = (numeral: string) => {
   const orderedByPriorityReplacements = subtractiveReplacements.sort((a, b) => {
     return a.priority - b.priority;
   });
+
   for (let replacement of orderedByPriorityReplacements) {
     subtractiveNumeral = subtractiveNumeral.replace(
       replacement.initialRomanNumeral,
