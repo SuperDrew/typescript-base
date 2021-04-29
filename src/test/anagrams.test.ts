@@ -3,6 +3,7 @@ import {
   findAnagrams,
   findGroupsOfAnagrams,
 } from "../main/anagrams";
+import * as fs from "fs";
 
 describe("the anagrams thing", () => {
   describe("acceptance tests", () => {
@@ -14,6 +15,13 @@ describe("the anagrams thing", () => {
     `;
       const output = findAnagrams(input);
       expect(output).toStrictEqual([["asd"], ["drow", "word"]]);
+    });
+
+    it("should work out the right number of anagram groups in the huge file", () => {
+      console.log(process.cwd());
+      const stringInput = fs.readFileSync("./src/test/anagrams.txt", "utf8");
+      const anagramGroups = findAnagrams(stringInput);
+      expect(anagramGroups.length).toBe(20683);
     });
   });
 
