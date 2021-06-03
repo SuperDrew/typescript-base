@@ -4,3 +4,6 @@
 build
 tests_build
 node_modules
+
+# stryker temp files
+.stryker-tmp

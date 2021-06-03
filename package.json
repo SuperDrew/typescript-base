@@ -7,20 +7,23 @@
   "scripts": {
     "start": "jest --",
     "watch": "jest --watch --",
-    "watch-all": "jest --watchAll"
+    "watch-all": "jest --watchAll",
+    "mutate": "stryker run"
   },
   "dependencies": {
-    "deep-equal": "^2.0.4",
+    "deep-equal": "^2.0.5",
     "ts-node": "^8.7.0",
     "tslib": "^1.7.1"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "^5.0.1",
+    "@stryker-mutator/jest-runner": "^5.0.1",
     "@types/deep-equal": "^1.0.1",
     "@types/jest": "^25.1.4",
     "@types/node": "^7.10.9",
     "jest": "^25.1.0",
-    "jest-mock-extended": "^1.0.10",
+    "jest-mock-extended": "^1.0.15",
     "ts-jest": "^25.2.1",
-    "typescript": "^2.9.2"
+    "typescript": "^4.3.2"
   }
 }

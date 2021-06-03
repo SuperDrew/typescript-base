@@ -1,12 +1,15 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6",
+        "baseUrl": "./src",
+        "lib": ["dom", "es2018"],
+        "moduleResolution": "node",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "sourceMap": true,
+        "target": "es2017",
+        "outDir": "lib",
         "strict": true,
-        "declaration":true,
-        "noImplicitAny": true,
-        "sourceMap": false,
-        "outDir": "./dist",
+        "esModuleInterop": true
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules"]

@@ -1,5 +1,6 @@
-export class Example {
-    add(a: number, b: number) {
-        return a + b;
+export const convertToBooleanWithDefaultTrue = (value: string): boolean => {
+    if (value != 'true' && value != 'false') {
+        return true;
     }
-}
+    return value === 'true';
+};
